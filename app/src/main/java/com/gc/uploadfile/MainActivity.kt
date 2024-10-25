@@ -1,6 +1,7 @@
 package com.gc.uploadfile
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -18,6 +19,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,6 +54,27 @@ class MainActivity : ComponentActivity() {
                             viewModel.uploadFile(it)
                         }
                     }
+
+                    LaunchedEffect(key1 = state.errorMessage) {
+                        state.errorMessage?.let {
+                            Toast.makeText(
+                                applicationContext,
+                                state.errorMessage,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    LaunchedEffect(key1 = state.isUploadComplete) {
+                        if (state.isUploadComplete) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Upload Complete",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
 
                     Box(
                         modifier = Modifier
