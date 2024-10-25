@@ -44,7 +44,7 @@ class UploadFileViewModel(
             }
             .onEach {
                 state = state.copy(
-                    progress = it.byteSent.toFloat() / it.totalBytes
+                    progress = it.byteSent / it.totalBytes.toFloat()
                 )
             }
             .onCompletion { cause ->
